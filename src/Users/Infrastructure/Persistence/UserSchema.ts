@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm';
 import User from '../../Domain/User';
-import UserId from '../../Domain/UserId';
+import UserId from '../../../Shared/Domain/Users/UserId';
 import UserName from '../../Domain/UserName';
 
 export const UserSchema = new EntitySchema<User>({

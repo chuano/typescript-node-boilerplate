@@ -1,5 +1,5 @@
 import User from './User';
-import UserId from './UserId';
+import UserId from '../../Shared/Domain/Users/UserId';
 
 export default interface IUserRepository {
     find(userId: UserId): Promise<User | undefined>;

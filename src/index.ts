@@ -1,7 +1,7 @@
 require('express-async-errors');
 import express from 'express';
 import { DataSource } from 'typeorm';
-import ErrorHandler from './Shared/Infrastructure/ErrorHandler';
+import ErrorHandler from './Shared/Infrastructure/Error/ErrorHandler';
 import UserRoutes from './Users/Infrastructure/EntryPoint/Http/UserRoutes';
 import { UserSchema } from './Users/Infrastructure/Persistence/UserSchema';
 

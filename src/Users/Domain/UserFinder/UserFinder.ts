@@ -1,6 +1,6 @@
 import IUserRepository from '../IUserRepository';
 import User from '../User';
-import UserId from '../UserId';
+import UserId from '../../../Shared/Domain/Users/UserId';
 import UserNotFound from './UserNotFound';
 
 export default class UserFinder {

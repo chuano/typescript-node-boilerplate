@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import CustomError from '../Domain/CustomError';
+import CustomError from '../../Domain/Error/CustomError';
 
 export default class ErrorHandler {
     static handle(err: Error, req: Request, res: Response, next: NextFunction): void {

@@ -1,4 +1,4 @@
-import UserId from './UserId';
+import UserId from '../../Shared/Domain/Users/UserId';
 import UserName from './UserName';
 
 export default class User {

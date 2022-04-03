@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
 import IUserRepository from '../../Domain/IUserRepository';
 import User from '../../Domain/User';
-import UserId from '../../Domain/UserId';
+import UserId from '../../../Shared/Domain/Users/UserId';
 import { UserSchema } from './UserSchema';
 
 export default class UserRepository implements IUserRepository {

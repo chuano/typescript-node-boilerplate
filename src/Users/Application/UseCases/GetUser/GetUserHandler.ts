@@ -1,5 +1,5 @@
 import UserFinder from '../../../Domain/UserFinder/UserFinder';
-import UserId from '../../../Domain/UserId';
+import UserId from '../../../../Shared/Domain/Users/UserId';
 import UserDTO from '../../UserDTO';
 import GetUserQuery from './GetUserQuery';
 
