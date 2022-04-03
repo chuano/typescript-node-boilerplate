@@ -1,27 +1,20 @@
 require('express-async-errors');
-import express from 'express';
-import { DataSource } from 'typeorm';
-import ErrorHandler from './Shared/Infrastructure/Error/ErrorHandler';
-import UserRoutes from './Users/Infrastructure/EntryPoint/Http/UserRoutes';
-import { UserSchema } from './Users/Infrastructure/Persistence/UserSchema';
+import {DataSource} from 'typeorm';
+import {UserSchema} from './Users/Infrastructure/Persistence/UserSchema';
+import {AppFactory} from './AppFactory';
 
-const AppDataSource = new DataSource({
+const appDataSource = new DataSource({
     type: 'sqlite',
-    database: `${__dirname}/db.sqlite`,
+    database: `${__dirname}/../db.sqlite`,
     entities: [UserSchema],
     logging: true,
     synchronize: true,
 });
 
 (async () => {
-    await AppDataSource.initialize();
+    await appDataSource.initialize();
 
-    const app = express();
-    app.set('db', AppDataSource);
+    const app = AppFactory.create(appDataSource);
 
-    UserRoutes.registerRoutes(app);
-
-    app.use(ErrorHandler.handle);
-
-    app.listen(3000, () => console.log('Listening on port 3000'));
+    app.listen(3002, () => console.log('Listening on port 3000'));
 })();
