@@ -16,7 +16,7 @@ export class AppFactory {
             limit: '5mb'
         }));
         app.use(express.json({
-            limit: '5mb'
+            limit: '50mb'
         }));
         app.use(compression());
         app.use(cors({
