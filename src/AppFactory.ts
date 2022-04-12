@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import ErrorHandler from './Shared/Infrastructure/Error/ErrorHandler';
 import {ContainerBuilder, YamlFileLoader} from 'node-dependency-injection';
 import path from 'path';
-import UserRoutes from './Users/Infrastructure/EntryPoint/Http/UserRoutes';
+import {glob} from 'glob';
 
 export class AppFactory {
     static create(appDataSource: DataSource): Application {
@@ -34,7 +34,12 @@ export class AppFactory {
         app.use(helmet());
         app.use(morgan('dev'));
 
-        UserRoutes.registerRoutes(app);
+        glob.sync(__dirname + '/**/*Routes.js')
+            .forEach(async (r) => {
+                const Route = await import(r);
+                const instance = new Route.default();
+                instance.registerRoutes(app);
+            });
 
         app.use(ErrorHandler.handle);
 
