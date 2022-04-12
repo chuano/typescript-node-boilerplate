@@ -4,7 +4,7 @@ import User from '../../Domain/User';
 import UserId from '../../../Shared/Domain/Users/UserId';
 import { UserSchema } from './UserSchema';
 
-export default class UserRepository implements IUserRepository {
+export default class TypeORMUserRepository implements IUserRepository {
     private readonly repository: any;
 
     constructor(dataSource: DataSource) {
