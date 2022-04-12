@@ -1,5 +1,6 @@
 .vscode
 .idea
+.nvmrc
 dist
 node_modules
 db.sqlite
