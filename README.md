@@ -5,7 +5,7 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 
 ## Features
 - [x] TypeORM
-- [ ] Dependency Injection
+- [x] Dependency Injection
 - [ ] JWT Authentication
 - [ ] EventBus
 - [ ] RabbitMQ
