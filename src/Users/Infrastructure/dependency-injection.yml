@@ -1,0 +1,10 @@
+services:
+  Users.UserRepository:
+    class: ./Users/Infrastructure/Persistence/TypeORMUserRepository
+    arguments: ['@Database']
+  Users.GetAllUsersHandler:
+    class: ./Users/Application/UseCases/GetAllUsers/GetAllUsersHandler
+    arguments: ['@Users.UserRepository']
+  Users.GetUserHandler:
+    class: ./Users/Application/UseCases/GetUser/GetUserHandler
+    arguments: [ '@Users.UserRepository' ]

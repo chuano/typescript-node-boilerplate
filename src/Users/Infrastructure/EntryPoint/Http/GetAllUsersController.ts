@@ -1,12 +1,11 @@
-import { NextFunction, Request, Response } from 'express';
+import {NextFunction, Request, Response} from 'express';
 import GetAllUsersHandler from '../../../Application/UseCases/GetAllUsers/GetAllUsersHandler';
-import UserRepository from '../../Persistence/TypeORMUserRepostiory';
+import {ContainerBuilder} from 'node-dependency-injection';
 
 export default class GetAllUsersController {
     static async execute(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const userRepository = new UserRepository(req.app.get('db'));
-        const handler = new GetAllUsersHandler(userRepository);
-
+        const container = req.app.get('container') as ContainerBuilder;
+        const handler = container.get<GetAllUsersHandler>('Users.GetAllUsersHandler');
         const result = await handler.handle();
 
         res.json(result);

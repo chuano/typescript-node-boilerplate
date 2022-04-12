@@ -1,15 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import GetUserHandler from '../../../Application/UseCases/GetUser/GetUserHandler';
 import GetUserQuery from '../../../Application/UseCases/GetUser/GetUserQuery';
-import UserFinder from '../../../Domain/UserFinder/UserFinder';
-import UserRepository from '../../Persistence/TypeORMUserRepostiory';
+import {ContainerBuilder} from 'node-dependency-injection';
 
 export default class GetUserController {
     static async execute(req: Request, res: Response, next: NextFunction): Promise<void> {
-        const repository = new UserRepository(req.app.get('db'));
-        const userFinder = new UserFinder(repository);
-        const handler = new GetUserHandler(userFinder);
-
+        const handler = (req.app.get('container') as ContainerBuilder).get<GetUserHandler>('Users.GetUserHandler');
         const query = new GetUserQuery(req.params.userId);
         const result = await handler.handle(query);
 

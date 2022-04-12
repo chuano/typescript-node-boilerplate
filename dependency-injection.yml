@@ -1,0 +1,5 @@
+services:
+  Database:
+    synthetic: true
+imports:
+  - { resource: ./src/Users/Infrastructure/dependency-injection.yml }

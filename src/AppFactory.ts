@@ -4,13 +4,21 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import UserRoutes from './Users/Infrastructure/EntryPoint/Http/UserRoutes';
 import ErrorHandler from './Shared/Infrastructure/Error/ErrorHandler';
+import {ContainerBuilder, YamlFileLoader} from 'node-dependency-injection';
+import path from 'path';
+import UserRoutes from './Users/Infrastructure/EntryPoint/Http/UserRoutes';
 
 export class AppFactory {
     static create(appDataSource: DataSource): Application {
         const app = express();
-        app.set('db', appDataSource);
+
+        const container = new ContainerBuilder(true, path.join(__dirname));
+        const loader = new YamlFileLoader(container);
+        container.set('Database', appDataSource);
+        loader.load('./dependency-injection.yml');
+        app.set('container', container);
+
         app.use(express.urlencoded({
             extended: true,
             limit: '5mb'
