@@ -13,3 +13,4 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 - [ ] Generate PDF
 - [ ] SOAP Client
 - [ ] OpenAPI
+- [ ] Migrations
