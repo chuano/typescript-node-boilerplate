@@ -8,6 +8,6 @@ export default class GetAllUsersHandler {
     async handle(): Promise<UserDTO[]> {
         const users = await this.userRepository.findAll();
 
-        return users.map((user) => new UserDTO(user.id.value, user.name.value));
+        return users.map((user) => UserDTO.fromEntity(user));
     }
 }

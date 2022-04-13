@@ -34,7 +34,7 @@ export class AppFactory {
         app.use(helmet());
         app.use(morgan('dev'));
 
-        glob.sync(__dirname + '/**/*Routes.js')
+        glob.sync(__dirname + '/**/*Routes.{js,ts}')
             .forEach(async (r) => {
                 const Route = await import(r);
                 const instance = new Route.default();

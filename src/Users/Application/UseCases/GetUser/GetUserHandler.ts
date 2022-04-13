@@ -9,6 +9,6 @@ export default class GetUserHandler {
     async handle(query: GetUserQuery): Promise<UserDTO> {
         const user = await this.userFinder.find(new UserId(query.userId));
 
-        return new UserDTO(user.id.value, user.name.value);
+        return UserDTO.fromEntity(user);
     }
 }

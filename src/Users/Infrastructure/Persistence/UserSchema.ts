@@ -1,4 +1,4 @@
-import { EntitySchema } from 'typeorm';
+import {EntitySchema} from 'typeorm';
 import User from '../../Domain/User';
 import UserId from '../../../Shared/Domain/Users/UserId';
 import UserName from '../../Domain/UserName';

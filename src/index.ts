@@ -1,16 +1,8 @@
 require('express-async-errors');
-import {DataSource} from 'typeorm';
-import {UserSchema} from './Users/Infrastructure/Persistence/UserSchema';
 import {AppFactory} from './AppFactory';
+import {DataSourceFactory} from './DataSourceFactory';
 
-const appDataSource = new DataSource({
-    type: 'sqlite',
-    database: `${__dirname}/../db.sqlite`,
-    entities: [UserSchema],
-    logging: true,
-    synchronize: true,
-});
-
+const appDataSource = DataSourceFactory.getDataSource(process.env.NODE_ENV ?? 'dev');
 (async () => {
     await appDataSource.initialize();
 
