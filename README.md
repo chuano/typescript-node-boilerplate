@@ -7,10 +7,17 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 - [x] TypeORM
 - [x] Dependency Injection
 - [x] Testing
-- [ ] JWT Authentication
+- [x] JWT Authentication
+- [ ] Dotenv
 - [ ] EventBus
 - [ ] RabbitMQ
 - [ ] Generate PDF
 - [ ] SOAP Client
 - [ ] OpenAPI
 - [ ] Migrations
+- [ ] Linter
+
+## Dependencies
+
+## Maybe
+https://www.npmjs.com/package/typescript-rest-swagger
