@@ -21,7 +21,7 @@ export default class Environment {
             default:
                 dotenvFile = path.join(__dirname, '../../.env.dev.local');
                 if (!fs.existsSync(dotenvFile)) {
-                    dotenvFile = path.join(__dirname, '../.env.dev');
+                    dotenvFile = path.join(__dirname, '../../.env.dev');
                 }
                 break;
         }
