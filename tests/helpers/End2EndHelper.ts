@@ -2,6 +2,7 @@ import {Application} from 'express';
 import {DataSource} from 'typeorm';
 import {AppFactory} from '../../src/AppFactory';
 import {DataSourceFactory} from '../../src/DataSourceFactory';
+import Environment from '../../src/Environment';
 
 export class End2EndHelper {
     public static appInstance: Application;
@@ -12,6 +13,7 @@ export class End2EndHelper {
             return this.appInstance;
         }
 
+        Environment.initialize();
         this.dataSource = DataSourceFactory.getDataSource('test');
         await this.dataSource.initialize();
 

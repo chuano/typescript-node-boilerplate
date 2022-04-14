@@ -5,13 +5,17 @@ import {UserSchema} from '../../../src/Users/Infrastructure/Persistence/UserSche
 import User from '../../../src/Users/Domain/User';
 import {UserMother} from '../../unit/Users/Domain/UserMother';
 import UserDTO from '../../../src/Users/Application/UserDTO';
+import jsonwebtoken from 'jsonwebtoken';
+import Environment from '../../../src/Environment';
 
 describe('Get all users', () => {
     const users = [UserMother.random(), UserMother.random()];
     let app: Application;
+    let token: string;
 
     beforeAll(async () => {
         app = await End2EndHelper.getApp();
+        token = jsonwebtoken.sign({userId: '123'}, Environment.getAppSecret());
 
         const datasource = End2EndHelper.dataSource;
         const repository = datasource.getRepository<User>(UserSchema);
@@ -30,7 +34,7 @@ describe('Get all users', () => {
     });
 
     it('should get all users', async () => {
-        const response = await supertest(app).get('/');
+        const response = await supertest(app).get(`/users?token=${token}`);
         expect(response.body).toEqual(users.map((user) => UserDTO.fromEntity(user)));
     });
 });
