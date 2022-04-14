@@ -47,3 +47,4 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 - prettier
 ## Maybe
 https://www.npmjs.com/package/typescript-rest-swagger
+https://bus.node-ts.com/
