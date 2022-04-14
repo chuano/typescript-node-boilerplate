@@ -7,7 +7,7 @@
     "test": "jest",
     "test:cov": "jest --coverage",
     "test:watch": "jest --watch",
-    "dev": "npx nodemon"
+    "dev": "NODE_ENV=dev npx nodemon"
   },
   "keywords": [],
   "author": "",
@@ -45,7 +45,6 @@
     "prettier": "^2.6.2",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.4",
-    "ts-node": "^10.7.0",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",

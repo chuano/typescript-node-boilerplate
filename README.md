@@ -8,7 +8,7 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 - [x] Dependency Injection
 - [x] Testing
 - [x] JWT Authentication
-- [ ] Dotenv
+- [x] Dotenv
 - [ ] EventBus
 - [ ] RabbitMQ
 - [ ] Generate PDF
@@ -19,5 +19,31 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 
 ## Dependencies
 
+### Express
+- express
+- compression
+- cors
+- helmet (security)
+- morgan (loggin)
+- express-async-errors
+### Environment
+- dotenv
+### Jwt
+- jsonwebtoken
+### Dependency injection
+- node-dependency-injection
+### Database
+- typeorm
+### Testing
+- jest
+- ts-jest
+- supertest
+### Development
+- nodemon
+- tslint
+- typescript
+### Other
+- glob
+- prettier
 ## Maybe
 https://www.npmjs.com/package/typescript-rest-swagger
