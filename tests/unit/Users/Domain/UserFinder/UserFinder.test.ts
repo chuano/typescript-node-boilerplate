@@ -28,7 +28,9 @@ describe('UserFinder', () => {
 
             const userFinder = new UserFinder(repository, new EventBus());
 
-            await expect(userFinder.find(userId)).rejects.toThrow(UserNotFound);
+            await expect(async () => await userFinder.find(userId))
+                .rejects
+                .toThrow(UserNotFound);
         });
 
         it('should publish user found event if user was found', async () => {
