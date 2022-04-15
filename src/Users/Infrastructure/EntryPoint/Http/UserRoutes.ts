@@ -1,4 +1,4 @@
-import { Application, Router } from 'express';
+import {Application, Router} from 'express';
 import GetAllUsersController from './GetAllUsersController';
 import GetUserController from './GetUserController';
 import Authenticator from '../../../../Shared/Infrastructure/Authenticator/Authenticator';

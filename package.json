@@ -7,7 +7,8 @@
     "test": "jest --silent=true",
     "test:cov": "jest --coverage --silent=true",
     "test:watch": "jest --watch --silent=true",
-    "dev": "NODE_ENV=dev npx nodemon"
+    "dev": "NODE_ENV=dev npx nodemon",
+    "lint": "npx eslint \"{src,test}/**/*.ts\""
   },
   "keywords": [],
   "author": "",

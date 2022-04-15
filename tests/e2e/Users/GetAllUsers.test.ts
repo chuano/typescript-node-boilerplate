@@ -4,7 +4,7 @@ import {End2EndHelper} from '../../helpers/End2EndHelper';
 import {UserSchema} from '../../../src/Users/Infrastructure/Persistence/UserSchema';
 import User from '../../../src/Users/Domain/User';
 import {UserMother} from '../../unit/Users/Domain/UserMother';
-import UserDTO from '../../../src/Users/Application/UserDTO';
+import UserDto from '../../../src/Users/Application/UserDto';
 import jsonwebtoken from 'jsonwebtoken';
 import Environment from '../../../src/Environment';
 
@@ -35,6 +35,6 @@ describe('Get all users', () => {
 
     it('should get all users', async () => {
         const response = await supertest(app).get(`/users?token=${token}`);
-        expect(response.body).toEqual(users.map((user) => UserDTO.fromEntity(user)));
+        expect(response.body).toEqual(users.map((user) => UserDto.fromEntity(user)));
     });
 });

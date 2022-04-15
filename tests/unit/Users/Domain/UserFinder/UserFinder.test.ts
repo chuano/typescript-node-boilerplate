@@ -25,7 +25,6 @@ describe('UserFinder', () => {
             const userId = UserIdMother.random();
 
             const repository = new MockUserRepository();
-            repository.setUser(undefined);
 
             const userFinder = new UserFinder(repository, new EventBus());
 

@@ -1,6 +1,7 @@
 {
   "env": {
-    "es6": true
+    "es6": true,
+    "node": true
   },
   "extends": [
     "eslint:recommended",
@@ -29,7 +30,12 @@
     // }
   },
   "rules": {
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/require-await": "off",
     "unicorn/prevent-abbreviations": "off",
+    "unicorn/no-static-only-class": "off",
+    "unicorn/prefer-module": "off",
     "unicorn/filename-case": [
       "warn",
       {

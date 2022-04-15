@@ -1,13 +1,13 @@
 import IUserRepository from '../../../Domain/IUserRepository';
-import UserDTO from '../../UserDTO';
+import UserDto from '../../UserDto';
 
 export default class GetAllUsersHandler {
     constructor(private readonly userRepository: IUserRepository) {
     }
 
-    async handle(): Promise<UserDTO[]> {
+    async handle(): Promise<UserDto[]> {
         const users = await this.userRepository.findAll();
 
-        return users.map((user) => UserDTO.fromEntity(user));
+        return users.map((user) => UserDto.fromEntity(user));
     }
 }

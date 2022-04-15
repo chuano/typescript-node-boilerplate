@@ -3,10 +3,10 @@ import UserId from '../../../../src/Shared/Domain/Users/UserId';
 import User from '../../../../src/Users/Domain/User';
 
 export default class MockUserRepository implements IUserRepository {
-    private user: User | undefined;
+    private user?: User;
     private users: User[] = [];
 
-    setUser(user: User|undefined): void {
+    setUser(user: User | undefined): void {
         this.user = user;
     }
 

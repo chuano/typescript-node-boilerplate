@@ -6,12 +6,12 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import ErrorHandler from './Shared/Infrastructure/Error/ErrorHandler';
 import {ContainerBuilder, YamlFileLoader} from 'node-dependency-injection';
-import path from 'path';
+import path from 'node:path';
 import {glob} from 'glob';
 import {EventBus} from './Shared/Infrastructure/EventBus/EventBus';
 
-export class AppFactory {
-    static create(appDataSource: DataSource): Application {
+export const AppFactory = {
+    async create(appDataSource: DataSource): Promise<Application> {
         const app = express();
 
         const container = new ContainerBuilder(true, path.join(__dirname));
@@ -27,7 +27,7 @@ export class AppFactory {
 
         // Attach event handlers to event bus
         for (const [id] of container.findTaggedServiceIds('EventHandler')) {
-            container.get('EventBus').attach(container.get(id));
+            container.get<EventBus>('EventBus').attach(container.get(id as string));
         }
 
         app.use(express.urlencoded({
@@ -45,15 +45,17 @@ export class AppFactory {
         app.use(helmet());
         app.use(morgan('dev'));
 
-        glob.sync(__dirname + '/**/*Routes.{js,ts}')
-            .forEach(async (r) => {
-                const Route = await import(r);
-                const instance = new Route.default();
-                instance.registerRoutes(app);
-            });
+        for (const route of glob.sync(__dirname + '/**/*Routes.{js,ts}')) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const Route = await import(route);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
+            const instance = new Route.default();
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+            instance.registerRoutes(app);
+        }
 
         app.use(ErrorHandler.handle);
 
         return app;
-    }
-}
+    },
+};

@@ -17,7 +17,7 @@ export class End2EndHelper {
         this.dataSource = DataSourceFactory.getDataSource('test');
         await this.dataSource.initialize();
 
-        this.appInstance = AppFactory.create(this.dataSource);
+        this.appInstance = await AppFactory.create(this.dataSource);
 
         return this.appInstance;
     }

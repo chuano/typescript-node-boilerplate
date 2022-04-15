@@ -1,4 +1,4 @@
-import {DataSource} from 'typeorm';
+import {DataSource, DataSourceOptions} from 'typeorm';
 import {UserSchema} from './Users/Infrastructure/Persistence/UserSchema';
 
 export class DataSourceFactory {
@@ -35,7 +35,7 @@ export class DataSourceFactory {
         const mergedOptions = {
             ...DataSourceFactory.commonOptions,
             ...options
-        };
+        } as DataSourceOptions;
         return new DataSource(mergedOptions);
     }
 }

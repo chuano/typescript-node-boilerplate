@@ -1,6 +1,6 @@
-import path from 'path';
+import path from 'node:path';
 import dotenv from 'dotenv';
-import fs from 'fs';
+import fs from 'node:fs';
 
 export default class Environment {
     static initialize(): void {

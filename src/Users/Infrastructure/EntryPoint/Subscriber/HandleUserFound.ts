@@ -5,6 +5,9 @@ export default class HandleUserFound implements IHandler {
     readonly eventClassName: string = UserFound.name;
 
     async handle(event: UserFound): Promise<void> {
-        console.log(event.payload);
+        await new Promise((resolve) => {
+            console.log(event.payload);
+            resolve(0);
+        });
     }
 }

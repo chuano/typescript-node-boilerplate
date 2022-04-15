@@ -14,9 +14,9 @@ export default class Authenticator {
         const token = Authenticator.getToken(req);
 
         try {
-            const {userId} = jsonwebtoken.verify(token, Authenticator.secret) as any;
+            const {userId} = jsonwebtoken.verify(token, Authenticator.secret) as { userId: string };
             req.app.set('userId', userId);
-        } catch (e) {
+        } catch {
             throw new Unauthorized();
         }
 
@@ -30,6 +30,6 @@ export default class Authenticator {
             throw new TokenNotFound();
         }
 
-        return token as string;
+        return token ;
     }
 }
