@@ -1,5 +1,7 @@
 services:
   Database:
     synthetic: true
+  EventBus:
+    synthetic: true
 imports:
   - { resource: ./src/Users/Infrastructure/dependency-injection.yml }

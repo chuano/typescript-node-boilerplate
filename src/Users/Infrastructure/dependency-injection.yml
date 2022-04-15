@@ -1,4 +1,7 @@
 services:
+  Users.UserFinder:
+    class: ./Users/Domain/UserFinder/UserFinder
+    arguments: ['@Users.UserRepository', '@EventBus']
   Users.UserRepository:
     class: ./Users/Infrastructure/Persistence/TypeORMUserRepository
     arguments: ['@Database']
@@ -7,4 +10,9 @@ services:
     arguments: ['@Users.UserRepository']
   Users.GetUserHandler:
     class: ./Users/Application/UseCases/GetUser/GetUserHandler
-    arguments: [ '@Users.UserRepository' ]
+    arguments: [ '@Users.UserFinder' ]
+  Users.HandleUserFound:
+    class: ./Users/Infrastructure/EntryPoint/Subscriber/HandleUserFound
+    arguments: []
+    tags:
+      - { name: EventHandler}
