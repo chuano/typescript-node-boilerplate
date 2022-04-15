@@ -1,9 +1,11 @@
 # Typescript node boilerplate
+
 Personal usage typescript express application using Express as framework.
 
 This project uses a Hexagonal Architecture approach, using a simple User aggregate as example.
 
 ## Features
+
 - [x] TypeORM
 - [x] Dependency Injection
 - [x] Testing
@@ -15,47 +17,66 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 - [ ] SOAP Client
 - [ ] OpenAPI
 - [ ] Migrations
-- [ ] Linter
+- [x] Linter
 
 ## Dependencies
 
 ### Express
+
 - express
 - compression
 - cors
 - helmet (security)
 - morgan (loggin)
 - express-async-errors
+
 ### Environment
+
 - dotenv
+
 ### Jwt
+
 - jsonwebtoken
+
 ### Dependency injection
+
 - node-dependency-injection
+
 ### Database
+
 - typeorm
+
 ### Testing
+
 - jest
 - ts-jest
 - supertest
+
 ### Development
+
 - nodemon
-- tslint
-- typescript
-### Other
-- glob
+- eslint
 - prettier
+- typescript
+
+### Other
+
+- glob
+
 ## Maybe
+
 https://www.npmjs.com/package/typescript-rest-swagger
 
-
 ## Event Bus system
+
 The Event Bus is instantiated at the bootstrap of application and injected to dependency injection container.
 
-The events are matched with his handlers by the handler public *eventClassName* property and the event class name. 
+The events are matched with his handlers by the handler public *eventClassName* property and the event class name.
 
 ### Events
+
 The events should implement IEvent interface
+
 ```typescript
 import {IEvent} from '../../../../Shared/Domain/EventBus/IEvent';
 import UserFoundPayload from './UserFoundPayload';
@@ -65,7 +86,9 @@ export class UserFound implements IEvent {
     }
 }
 ```
+
 Then you can publish them using publish method of EventBus.
+
 ```typescript
 await this.eventBus.publish(
     new UserFound(
@@ -74,8 +97,11 @@ await this.eventBus.publish(
     )
 );
 ```
+
 ### Handlers
+
 The event handlers should implement IHandler interface.
+
 ```typescript
 import {UserFound} from '../../../Domain/UserFinder/Event/UserFound';
 import {IHandler} from '../../../../Shared/Domain/EventBus/IHandler';
@@ -88,17 +114,21 @@ export default class HandleUserFound implements IHandler {
     }
 }
 ```
+
 They may be defined in the dependency injection configuration file tagged with EventHandler tag.
+
 ```yaml
 Users.HandleUserFound:
-    class: ./Users/Infrastructure/EntryPoint/Subscriber/HandleUserFound
-    arguments: []
-    tags:
-      - { name: EventHandler}
+  class: ./Users/Infrastructure/EntryPoint/Subscriber/HandleUserFound
+  arguments: [ ]
+  tags:
+    - { name: EventHandler }
 ```
+
 Then they are automatically attached to event bus.
 
 ### Manual handler attachment
+
 Handlers can be attached manually instead by dependency injection configuration.
 
 ```typescript
