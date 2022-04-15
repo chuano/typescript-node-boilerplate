@@ -17,7 +17,12 @@ export default class UserFinder {
             throw new UserNotFound();
         }
 
-        await this.eventBus.publish(new UserFound(new UserFoundPayload(userId)));
+        await this.eventBus.publish(
+            new UserFound(
+                new UserFoundPayload(userId),
+                new Date()
+            )
+        );
 
         return user;
     }

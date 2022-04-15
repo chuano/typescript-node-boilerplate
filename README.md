@@ -61,14 +61,18 @@ import {IEvent} from '../../../../Shared/Domain/EventBus/IEvent';
 import UserFoundPayload from './UserFoundPayload';
 
 export class UserFound implements IEvent {
-    constructor(readonly payload: UserFoundPayload) {
+    constructor(readonly payload: UserFoundPayload, readonly ocurredOn: Date) {
     }
 }
 ```
 Then you can publish them using publish method of EventBus.
 ```typescript
-const event = new UserFound(new UserFoundPayload(userId));
-await this.eventBus.publish(event);
+await this.eventBus.publish(
+    new UserFound(
+        new UserFoundPayload(userId),
+        new Date()
+    )
+);
 ```
 ### Handlers
 The event handlers should implement IHandler interface.

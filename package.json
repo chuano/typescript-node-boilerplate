@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:cov": "jest --coverage",
-    "test:watch": "jest --watch",
+    "test": "jest --silent=true",
+    "test:cov": "jest --coverage --silent=true",
+    "test:watch": "jest --watch --silent=true",
     "dev": "NODE_ENV=dev npx nodemon"
   },
   "keywords": [],
