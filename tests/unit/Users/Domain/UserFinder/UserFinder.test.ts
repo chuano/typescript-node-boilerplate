@@ -5,6 +5,7 @@ import {UserMother} from '../UserMother';
 import {UserIdMother} from '../UserIdMother';
 import {EventBus} from '../../../../../src/Shared/Infrastructure/EventBus/EventBus';
 import MockEventBus from '../../__mocks__/MockEventBus';
+import {UserFound} from '../../../../../src/Users/Domain/UserFinder/Event/UserFound';
 
 describe('UserFinder', () => {
     describe('Find a user', () => {
@@ -43,6 +44,7 @@ describe('UserFinder', () => {
             await userFinder.find(expectedUser.id);
 
             expect(eventBus.events.length).toBe(1);
+            expect(eventBus.events[0]).toBeInstanceOf(UserFound);
         });
     });
 });
