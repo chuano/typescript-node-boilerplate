@@ -1,6 +1,12 @@
 {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": ["/node_modules/"],
-    "modulePathIgnorePatterns": ["/dist/"]
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "coveragePathIgnorePatterns": [
+    "/dist/",
+    "/tests/",
+    "/node_modules/"
+  ],
+  "modulePathIgnorePatterns": [
+    "/dist/"
+  ]
 }
