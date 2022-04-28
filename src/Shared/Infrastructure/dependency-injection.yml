@@ -1,0 +1,4 @@
+services:
+  Shared.LostEventRepository:
+    class: ./Shared/Infrastructure/LostEvent/Persistence/TypeOrmLostEventRepository
+    arguments: [ '@Database' ]

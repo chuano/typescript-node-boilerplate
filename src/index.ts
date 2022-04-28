@@ -4,7 +4,8 @@ import {DataSourceFactory} from './DataSourceFactory';
 import Environment from './Environment';
 
 const appDataSource = DataSourceFactory.getDataSource(process.env.NODE_ENV ?? 'dev');
-await (async () => {
+
+(async () => {
     Environment.initialize();
     await appDataSource.initialize();
 

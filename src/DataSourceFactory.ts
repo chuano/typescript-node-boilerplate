@@ -1,11 +1,12 @@
 import {DataSource, DataSourceOptions} from 'typeorm';
 import {UserSchema} from './Users/Infrastructure/Persistence/UserSchema';
+import {LostEventSchema} from './Shared/Infrastructure/LostEvent/Persistence/LostEventSchema';
 
 export class DataSourceFactory {
 
     private static readonly commonOptions = {
         type: 'sqlite',
-        entities: [UserSchema],
+        entities: [UserSchema, LostEventSchema],
     };
 
     static getDataSource(environment: string): DataSource {
@@ -31,7 +32,7 @@ export class DataSourceFactory {
         }
     }
 
-    private static buildDataSource(options: any): DataSource {
+    private static buildDataSource(options: object): DataSource {
         const mergedOptions = {
             ...DataSourceFactory.commonOptions,
             ...options

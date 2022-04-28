@@ -1,4 +1,5 @@
 export interface IEvent {
-    readonly payload: any;
+    readonly id: string;
+    readonly payload: unknown;
     readonly date: Date;
 }
