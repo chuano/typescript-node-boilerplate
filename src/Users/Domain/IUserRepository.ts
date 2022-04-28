@@ -1,10 +1,10 @@
 import User from './User';
 import UserId from '../../Shared/Domain/Users/UserId';
 
-export default interface IUserRepository {
-    find(userId: UserId): Promise<User | undefined>;
+export default abstract class IUserRepository {
+    abstract find(userId: UserId): Promise<User | undefined>;
 
-    findAll(): Promise<User[]>;
+    abstract findAll(): Promise<User[]>;
 
-    save(user: User): Promise<void>;
+    abstract save(user: User): Promise<void>;
 }

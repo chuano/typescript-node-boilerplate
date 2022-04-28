@@ -6,7 +6,7 @@ import {ILostEventRepository} from '../../Domain/LostEvent/ILostEventRepository'
 import LostEvent from '../../Domain/LostEvent/LostEvent';
 import LostEventId from '../../Domain/LostEvent/LostEventId';
 
-export class EventBus implements IEventBus {
+export class InMemoryEventBus implements IEventBus {
     private readonly handlers: IHandler[] = [];
 
     constructor(private rabbitChannel: Channel, private lostEventRepository: ILostEventRepository) {
@@ -18,7 +18,7 @@ export class EventBus implements IEventBus {
 
     async publish(event: IEvent): Promise<void> {
         for (const handler of this.handlers) {
-            if (event.constructor.name === handler.eventClassName) {
+            if (event.constructor.name === handler.eventClassName()) {
                 await handler.handle(event);
             }
         }

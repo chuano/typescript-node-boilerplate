@@ -40,7 +40,7 @@ This project uses a Hexagonal Architecture approach, using a simple User aggrega
 
 ### Dependency injection
 
-- node-dependency-injection
+- diod - [https://github.com/artberri/diod](https://github.com/artberri/diod)
 
 ### Database
 

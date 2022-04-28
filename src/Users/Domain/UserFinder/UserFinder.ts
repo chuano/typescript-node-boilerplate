@@ -6,7 +6,9 @@ import {IEventBus} from '../../../Shared/Domain/EventBus/IEventBus';
 import {UserFound} from './Event/UserFound';
 import UserFoundPayload from './Event/UserFoundPayload';
 import UuidProviderImpl from '../../../Shared/Infrastructure/Uuid/UuidProviderImpl';
+import {AppService} from '../../../Shared/Domain/AppService';
 
+@AppService()
 export default class UserFinder {
     constructor(private readonly userRepository: IUserRepository, private readonly eventBus: IEventBus) {
     }

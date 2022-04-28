@@ -1,6 +1,8 @@
 import IUserRepository from '../../../Domain/IUserRepository';
 import UserDto from '../../UserDto';
+import {AppService} from '../../../../Shared/Domain/AppService';
 
+@AppService()
 export default class GetAllUsersHandler {
     constructor(private readonly userRepository: IUserRepository) {
     }

@@ -1,16 +1,18 @@
+import 'reflect-metadata';
 import {DataSource} from 'typeorm';
 import express, {Application} from 'express';
 import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import path from 'node:path';
 import client from 'amqplib';
 import ErrorHandler from './Shared/Infrastructure/Error/ErrorHandler';
-import {ContainerBuilder, YamlFileLoader} from 'node-dependency-injection';
 import {glob} from 'glob';
-import {EventBus} from './Shared/Infrastructure/EventBus/EventBus';
-import {ILostEventRepository} from './Shared/Domain/LostEvent/ILostEventRepository';
+import {InMemoryEventBus} from './Shared/Infrastructure/EventBus/InMemoryEventBus';
+import {ContainerBuilder} from 'diod';
+import {IEventBus} from './Shared/Domain/EventBus/IEventBus';
+import TypeOrmLostEventRepository from './Shared/Infrastructure/LostEvent/Persistence/TypeOrmLostEventRepository';
+import {IHandler} from './Shared/Domain/EventBus/IHandler';
 
 export const AppFactory = {
     async create(appDataSource: DataSource): Promise<Application> {
@@ -20,23 +22,28 @@ export const AppFactory = {
         const channel = await connection.createChannel();
         await channel.assertQueue('async');
 
-        const container = new ContainerBuilder(true, path.join(__dirname));
-        const loader = new YamlFileLoader(container);
-        loader.load('./dependency-injection.yml');
-
-        // Inject instances to container
-        container.set('Database', appDataSource);
-        container.set('EventBus', new EventBus(
-            channel,
-            container.get<ILostEventRepository>('Shared.LostEventRepository'))
+        const builder = new ContainerBuilder();
+        for (const dependencies of glob.sync(__dirname + '/**/Dependencies.{js,ts}')) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const Dependencies = await import(dependencies);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
+            const instance = new Dependencies.default();
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+            instance.build(builder);
+        }
+        builder.register(DataSource).useInstance(appDataSource);
+        builder.register(IEventBus).useInstance(
+            new InMemoryEventBus(
+                channel,
+                new TypeOrmLostEventRepository(appDataSource))
         );
 
-        // Save container
+        const container = builder.build();
         app.set('container', container);
 
         // Attach event handlers to event bus
-        for (const [id] of container.findTaggedServiceIds('EventHandler')) {
-            container.get<EventBus>('EventBus').attach(container.get(id as string));
+        for (const handler of container.findTaggedServiceIdentifiers('EventHandler')) {
+            container.get(IEventBus).attach(container.get(handler) as IHandler);
         }
 
         app.use(express.urlencoded({
