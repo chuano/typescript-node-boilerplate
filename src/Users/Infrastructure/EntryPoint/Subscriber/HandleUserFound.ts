@@ -1,13 +1,14 @@
 import {UserFound} from '../../../Domain/UserFinder/Event/UserFound';
 import {IHandler} from '../../../../Shared/Domain/EventBus/IHandler';
+import {AppService} from '../../../../Shared/Domain/AppService';
 
+@AppService()
 export default class HandleUserFound implements IHandler {
-    readonly eventClassName: string = UserFound.name;
+    eventClassName(): string {
+        return UserFound.name;
+    }
 
     async handle(event: UserFound): Promise<void> {
-        await new Promise((resolve) => {
-            console.log(event.payload);
-            resolve(0);
-        });
+        console.log(event.payload);
     }
 }

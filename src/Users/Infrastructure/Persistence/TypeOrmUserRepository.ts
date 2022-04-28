@@ -3,7 +3,9 @@ import IUserRepository from '../../Domain/IUserRepository';
 import User from '../../Domain/User';
 import UserId from '../../../Shared/Domain/Users/UserId';
 import {UserSchema} from './UserSchema';
+import {AppService} from '../../../Shared/Domain/AppService';
 
+@AppService()
 export default class TypeOrmUserRepository implements IUserRepository {
     private readonly repository: Repository<User>;
 

@@ -2,7 +2,9 @@ import {ILostEventRepository} from '../../../Domain/LostEvent/ILostEventReposito
 import LostEvent from '../../../Domain/LostEvent/LostEvent';
 import {DataSource, Repository} from 'typeorm';
 import {LostEventSchema} from './LostEventSchema';
+import {AppService} from '../../../Domain/AppService';
 
+@AppService()
 export default class TypeOrmLostEventRepository implements ILostEventRepository {
     private readonly repository: Repository<LostEvent>;
 

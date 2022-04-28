@@ -1,13 +1,14 @@
 import {Request, Response} from 'express';
 import GetAllUsersHandler from '../../../Application/UseCases/GetAllUsers/GetAllUsersHandler';
-import {ContainerBuilder} from 'node-dependency-injection';
+import {AppService} from '../../../../Shared/Domain/AppService';
 
+@AppService()
 export default class GetAllUsersController {
-    static async execute(req: Request, res: Response): Promise<void> {
-        const container = req.app.get('container') as ContainerBuilder;
-        const handler = container.get<GetAllUsersHandler>('Users.GetAllUsersHandler');
-        const result = await handler.handle();
+    constructor(private handler: GetAllUsersHandler) {
+    }
 
+    async execute(req: Request, res: Response): Promise<void> {
+        const result = await this.handler.handle();
         res.json(result);
     }
 }

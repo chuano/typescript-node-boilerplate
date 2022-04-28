@@ -1,5 +1,5 @@
 import LostEvent from './LostEvent';
 
-export interface ILostEventRepository {
-    save(lostEvent: LostEvent): Promise<void>;
+export abstract class ILostEventRepository {
+    abstract save(lostEvent: LostEvent): Promise<void>;
 }
