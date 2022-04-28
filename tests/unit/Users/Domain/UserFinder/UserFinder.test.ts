@@ -3,7 +3,6 @@ import MockUserRepository from '../../__mocks__/MockUserRepository';
 import UserNotFound from '../../../../../src/Users/Domain/UserFinder/UserNotFound';
 import {UserMother} from '../UserMother';
 import {UserIdMother} from '../UserIdMother';
-import {EventBus} from '../../../../../src/Shared/Infrastructure/EventBus/EventBus';
 import MockEventBus from '../../__mocks__/MockEventBus';
 import {UserFound} from '../../../../../src/Users/Domain/UserFinder/Event/UserFound';
 
@@ -15,7 +14,7 @@ describe('UserFinder', () => {
             const repository = new MockUserRepository();
             repository.setUser(expectedUser);
 
-            const userFinder = new UserFinder(repository, new EventBus());
+            const userFinder = new UserFinder(repository, new MockEventBus());
             const user = await userFinder.find(expectedUser.id);
 
             expect(user).toEqual(expectedUser);
@@ -26,7 +25,7 @@ describe('UserFinder', () => {
 
             const repository = new MockUserRepository();
 
-            const userFinder = new UserFinder(repository, new EventBus());
+            const userFinder = new UserFinder(repository, new MockEventBus());
 
             await expect(async () => await userFinder.find(userId))
                 .rejects

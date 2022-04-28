@@ -4,15 +4,21 @@ import compression from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import path from 'node:path';
+import client from 'amqplib';
 import ErrorHandler from './Shared/Infrastructure/Error/ErrorHandler';
 import {ContainerBuilder, YamlFileLoader} from 'node-dependency-injection';
-import path from 'node:path';
 import {glob} from 'glob';
 import {EventBus} from './Shared/Infrastructure/EventBus/EventBus';
+import {ILostEventRepository} from './Shared/Domain/LostEvent/ILostEventRepository';
 
 export const AppFactory = {
     async create(appDataSource: DataSource): Promise<Application> {
         const app = express();
+
+        const connection = await client.connect('amqp://rabbitmquser:rabbitmqpassword@localhost:5672');
+        const channel = await connection.createChannel();
+        await channel.assertQueue('async');
 
         const container = new ContainerBuilder(true, path.join(__dirname));
         const loader = new YamlFileLoader(container);
@@ -20,7 +26,10 @@ export const AppFactory = {
 
         // Inject instances to container
         container.set('Database', appDataSource);
-        container.set('EventBus', new EventBus());
+        container.set('EventBus', new EventBus(
+            channel,
+            container.get<ILostEventRepository>('Shared.LostEventRepository'))
+        );
 
         // Save container
         app.set('container', container);

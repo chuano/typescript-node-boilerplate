@@ -4,4 +4,5 @@ services:
   EventBus:
     synthetic: true
 imports:
+  - { resource: ./src/Shared/Infrastructure/dependency-injection.yml }
   - { resource: ./src/Users/Infrastructure/dependency-injection.yml }
