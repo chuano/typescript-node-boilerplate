@@ -61,7 +61,7 @@ export const AppFactory = {
         app.use(helmet());
         app.use(morgan('dev'));
 
-        for (const route of glob.sync(__dirname + '/**/*Routes.{js,ts}')) {
+        for (const route of glob.sync(__dirname + '/**/Routes.{js,ts}')) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const Route = await import(route);
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call

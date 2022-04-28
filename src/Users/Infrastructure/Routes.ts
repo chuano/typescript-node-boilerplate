@@ -1,14 +1,12 @@
 import {Application, Request, Response, Router} from 'express';
-import GetAllUsersController from './GetAllUsersController';
-import GetUserController from './GetUserController';
-import Authenticator from '../../../../Shared/Infrastructure/Authenticator/Authenticator';
-import Environment from '../../../../Environment';
-import {AppService} from '../../../../Shared/Domain/AppService';
-import PublicRouteController from './PublicRouteController';
+import GetAllUsersController from './EntryPoint/Http/GetAllUsersController';
+import GetUserController from './EntryPoint/Http/GetUserController';
+import Authenticator from '../../Shared/Infrastructure/Authenticator/Authenticator';
+import Environment from '../../Environment';
+import PublicRouteController from './EntryPoint/Http/PublicRouteController';
 import {Container} from 'diod';
 
-@AppService()
-export default class UserRoutes {
+export default class Routes {
     registerRoutes(app: Application) {
         const router = Router();
         const authenticator = new Authenticator(Environment.getAppSecret());
